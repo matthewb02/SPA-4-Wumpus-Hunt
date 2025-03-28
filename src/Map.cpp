@@ -4,9 +4,7 @@
 
 #include "Map.h"
 #include "Generator.h"
-#include "rooms/Wall.h"
 #include <iostream>
-#include <random>
 
 using namespace std;
 
@@ -18,8 +16,8 @@ Map::Map(int w, int h, Player* p) {
   rooms = g.generate();
   playerX = g.getStartX();
   playerY = g.getStartY();
-
-  getCurrentRoom() -> enter(player);
+  revealRooms();
+  getRoom(playerX, playerY) -> enter(player);
 }
 
 Room* Map::getRoom(int x, int y) {
@@ -42,7 +40,10 @@ void Map::printMap() {
       if (playerX == x && playerY == y) {
         cout << 'X';
       } else {
-        cout << rooms[y * width + x]->getIcon();
+        if (getRoom(x, y) -> isRevealed())
+          cout << getRoom(x, y)->getIcon();
+        else
+          cout << '?';
       }
       if (x < width - 1)
         cout << ' ';
@@ -72,6 +73,7 @@ bool Map::canMovePlayer(int dx, int dy) {
       return true;
     }
   }
+  getRoom(newX, newY) -> reveal();
   cout << "Something is blocking your path." << endl;
   return false;
 }
@@ -82,6 +84,10 @@ void Map::movePlayer(int dx, int dy) {
   playerX += dx;
   playerY += dy;
   getRoom(playerX, playerY) -> enter(player);
+  revealRooms();
+}
+
+void Map::revealRooms() {
   getRoom(playerX, playerY) -> reveal();
   if (player->getTorchDuration() > 0) {
     if (playerX < width - 1)

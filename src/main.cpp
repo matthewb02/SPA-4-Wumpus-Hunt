@@ -7,6 +7,17 @@
 
 using namespace std;
 
+/*
+ * @TODO
+ * Game class - takes game logic out of the driver and allows "global variables"
+ *
+ * stairs - descend between floors that extend in size
+ *
+ * arrow functionality - option to shoot adjacent rooms
+ *
+ * special rooms - campfire, locked door, blessed fountain
+ */
+
 int main() {
 	Player player = Player();
 	Map map = Map(4, 4, &player);
@@ -56,6 +67,7 @@ int main() {
 				cout << "You light a new torch." << endl;
 				player.changeTorches(-1);
 				player.setTorchDuration(5);
+				map.revealRooms();
 				break;
 			default:
 				cout << "AAAAAHHH" << endl;

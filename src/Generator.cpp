@@ -9,6 +9,9 @@
 #include "rooms/KeyRoom.h"
 #include "rooms/Monster.h"
 #include "rooms/Trap.h"
+#include "rooms/ArrowRoom.h"
+#include "rooms/TorchRoom.h"
+#include "rooms/FoodRoom.h"
 
 #include <set>
 #include <ctime>
@@ -38,6 +41,10 @@ Room** Generator::generate() {
           finalMap[i] = new KeyRoom();
         else if (rand() % 30 == 0)
           finalMap[i] = new Trap();
+        else if (rand() % 30 == 0)
+          finalMap[i] = new ArrowRoom();
+        else if (rand() % 45 == 0)
+          finalMap[i] = new TorchRoom();
         else
           finalMap[i] = new Room();
         break;
@@ -52,6 +59,12 @@ Room** Generator::generate() {
         break;
       case 6:
         finalMap[i] = new Monster();
+        break;
+      case 7:
+        finalMap[i] = new TorchRoom();
+        break;
+      case 8:
+        finalMap[i] = new FoodRoom();
         break;
       default:
         finalMap[i] = new Wall();
@@ -100,6 +113,7 @@ void Generator::createSprawl(int r) {
     adjWalls.insert(r - width);
 
   for (int i = 0; i < width * height * 0.6 - 3; i++) {
+    //printStuff(map);
     int newTile = getRandomElement(adjWalls);
     setRoom(newTile, 1);
     rooms.insert(newTile);
@@ -119,9 +133,17 @@ void Generator::createSprawl(int r) {
   int keyRoom = getRandomElement(rooms);
   rooms.erase(keyRoom);
   map[keyRoom] = 2;
+  int torch = getRandomElement(rooms);
+  rooms.erase(torch);
+  map[torch] = 7;
   int monster = getRandomElement(adjWalls);
   adjWalls.erase(monster);
   map[monster] = 6;
+  if (rand() % 2 == 0) {
+    int food = getRandomElement(rooms);
+    rooms.erase(food);
+    map[food] = 8;
+  }
   for (int i = 0; i < width * height - 15; i += 15) {
     int trap = getRandomElement(adjWalls);
     adjWalls.erase(trap);

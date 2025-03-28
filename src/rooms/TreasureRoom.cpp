@@ -30,5 +30,5 @@ void TreasureRoom::enter(Player* player) {
 }
 
 char TreasureRoom::getIcon() {
-  return 'C';
+  return looted ? ' ' : 'C';
 }

@@ -21,5 +21,5 @@ void Monster::shoot() {
 }
 
 char Monster::getIcon() {
-    return 'M';
+    return killed ? ' ' : 'M';
 }

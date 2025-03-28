@@ -22,6 +22,7 @@ public:
   int getPlayerY();
   bool canMovePlayer(int dx, int dy);
   void movePlayer(int dx, int dy);
+  void revealRooms();
 };
 
 
