@@ -4,9 +4,7 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
-
-
-
+class Map;
 class Player {
 private:
     int lives;
@@ -16,8 +14,12 @@ private:
     int rations;
     int arrows;
     int keys;
+    double goldMultiplier;
+    Map* map;
 public:
     Player();
+    Map* getMap();
+    void changeMap(Map* map);
     int getLives() const;
     void changeLives(int dLives);
     int getGold() const;
@@ -33,8 +35,8 @@ public:
     void changeArrows(int dArrows);
     int getKeys() const;
     void changeKeys(int dKeys);
+    double getGoldMultiplier() const;
+    void multiplyGoldMultiplier(double multiplier);
 };
-
-
 
 #endif //PLAYER_H

@@ -20,9 +20,10 @@ void TreasureRoom::enter(Player* player) {
       char in;
       cin >> in;
       if (in == 'y' || in == 'Y') {
-        cout << "You open the chest and find 25 gold pieces!" << endl;
+        int gold = 25 * player -> getGoldMultiplier();
+        cout << "You open the chest and find " << gold << " gold pieces!" << endl;
         player -> changeKeys(-1);
-        player -> changeGold(25);
+        player -> changeGold(gold);
         looted = true;
       }
     }

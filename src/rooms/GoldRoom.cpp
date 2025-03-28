@@ -9,7 +9,7 @@
 void GoldRoom::enter(Player* player) {
   if (!looted) {
     std::cout << "You find a pouch of gold!" << std::endl;
-    player -> changeGold(5);
+    player -> changeGold(5 * player -> getGoldMultiplier());
     looted = true;
   } else {
     std::cout << "This room has been emptied." << std::endl;

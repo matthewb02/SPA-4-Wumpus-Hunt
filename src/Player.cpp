@@ -14,6 +14,15 @@ Player::Player() {
     rations = 40;
     arrows = 1;
     keys = 0;
+    goldMultiplier = 1.0;
+}
+
+Map* Player::getMap() {
+    return map;
+}
+
+void Player::changeMap(Map* map) {
+    this -> map = map;
 }
 
 int Player::getLives() const {
@@ -56,7 +65,6 @@ void Player::decrementTorchDuration() {
     }
 }
 
-
 int Player::getRations() const {
     return rations;
 }
@@ -79,4 +87,12 @@ int Player::getKeys() const {
 
 void Player::changeKeys(const int dKeys) {
     keys += dKeys;
+}
+
+double Player::getGoldMultiplier() const {
+    return goldMultiplier;
+}
+
+void Player::multiplyGoldMultiplier(double multiplier) {
+    goldMultiplier *= multiplier;
 }

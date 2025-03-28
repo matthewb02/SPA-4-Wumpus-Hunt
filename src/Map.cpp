@@ -72,9 +72,9 @@ bool Map::canMovePlayer(int dx, int dy) {
     if (getRoom(newX, newY) -> canEnter()) {
       return true;
     }
+    getRoom(newX, newY) -> reveal();
   }
-  getRoom(newX, newY) -> reveal();
-  cout << "Something is blocking your path." << endl;
+  cout << "Something is blocking the path." << endl;
   return false;
 }
 
