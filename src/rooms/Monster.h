@@ -10,8 +10,9 @@
 class Monster : public Room {
 private:
     bool killed;
+    bool eaten;
 public:
-    Monster() : killed(false) {}
+    Monster() : killed(false), eaten(false) {}
     void enter(Player* player) override;
     void shoot() override;
     char getIcon() override;

@@ -13,6 +13,10 @@
 #include "rooms/TorchRoom.h"
 #include "rooms/FoodRoom.h"
 #include "rooms/Stairs.h"
+#include "rooms/Campfire.h"
+#include "rooms/SmallFoodRoom.h"
+#include "rooms/Shop.h"
+#include "rooms/Fountain.h"
 
 #include <set>
 #include <ctime>
@@ -38,14 +42,20 @@ Room** Generator::generate() {
       case 1:
         if (rand() % 5 == 0)
           finalMap[i] = new GoldRoom();
+        else if (width * height > 30 && rand() % 10 == 0)
+          finalMap[i] = new SmallFoodRoom();
         else if (rand() % 15 == 0)
           finalMap[i] = new KeyRoom();
+        else if (rand() % 15 == 0)
+          finalMap[i] = new Campfire();
         else if (rand() % 30 == 0)
           finalMap[i] = new Trap();
         else if (rand() % 30 == 0)
           finalMap[i] = new ArrowRoom();
         else if (rand() % 45 == 0)
           finalMap[i] = new TorchRoom();
+        else if (width * height > 30 && rand() % 60 == 0)
+          finalMap[i] = new Monster();
         else if (rand() % 100 == 0)
           finalMap[i] = new TreasureRoom();
         else
@@ -71,6 +81,9 @@ Room** Generator::generate() {
         break;
       case 9:
         finalMap[i] = new Stairs(width + rand() % 2, height + rand() % 2);
+        break;
+      case 10:
+        finalMap[i] = new Shop();
         break;
       default:
         finalMap[i] = new Wall();
@@ -144,6 +157,9 @@ void Generator::createSprawl(int r) {
   map[torch] = 7;
   int exit = getRandomElement(rooms);
   rooms.erase(exit);
+  if (exit == startX + startY * width) {
+    exit = getRandomElement(rooms);
+  }
   map[exit] = 9;
   int monster = getRandomElement(adjWalls);
   adjWalls.erase(monster);
@@ -153,7 +169,18 @@ void Generator::createSprawl(int r) {
     rooms.erase(food);
     map[food] = 8;
   }
-  for (int i = 0; i < width * height - 15; i += 15) {
+  if (width * height > 30) {
+    if (rand() % 3 == 0) {
+      int fountain = getRandomElement(rooms);
+      rooms.erase(fountain);
+      map[fountain] = 10;
+    } else {
+      int shop = getRandomElement(rooms);
+      rooms.erase(shop);
+      map[shop] = 10;
+    }
+  }
+  for (int i = 0; i < width * height - 12; i += 12) {
     int trap = getRandomElement(adjWalls);
     adjWalls.erase(trap);
     map[trap] = 5;

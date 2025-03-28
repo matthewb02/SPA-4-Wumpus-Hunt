@@ -12,7 +12,7 @@ Player::Player() {
     torches = 1;
     torchDuration = 5;
     rations = 40;
-    arrows = 1;
+    arrows = 0;
     keys = 0;
     goldMultiplier = 1.0;
 }
