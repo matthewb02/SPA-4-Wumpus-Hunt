@@ -12,6 +12,7 @@
 #include "rooms/ArrowRoom.h"
 #include "rooms/TorchRoom.h"
 #include "rooms/FoodRoom.h"
+#include "rooms/Stairs.h"
 
 #include <set>
 #include <ctime>
@@ -35,7 +36,7 @@ Room** Generator::generate() {
   for (int i = 0; i < width * height; i++) {
     switch (map[i]) {
       case 1:
-        if (rand() % 6 == 0)
+        if (rand() % 5 == 0)
           finalMap[i] = new GoldRoom();
         else if (rand() % 15 == 0)
           finalMap[i] = new KeyRoom();
@@ -45,6 +46,8 @@ Room** Generator::generate() {
           finalMap[i] = new ArrowRoom();
         else if (rand() % 45 == 0)
           finalMap[i] = new TorchRoom();
+        else if (rand() % 100 == 0)
+          finalMap[i] = new TreasureRoom();
         else
           finalMap[i] = new Room();
         break;
@@ -65,6 +68,9 @@ Room** Generator::generate() {
         break;
       case 8:
         finalMap[i] = new FoodRoom();
+        break;
+      case 9:
+        finalMap[i] = new Stairs(width + rand() % 2, height + rand() % 2);
         break;
       default:
         finalMap[i] = new Wall();
@@ -136,6 +142,9 @@ void Generator::createSprawl(int r) {
   int torch = getRandomElement(rooms);
   rooms.erase(torch);
   map[torch] = 7;
+  int exit = getRandomElement(rooms);
+  rooms.erase(exit);
+  map[exit] = 9;
   int monster = getRandomElement(adjWalls);
   adjWalls.erase(monster);
   map[monster] = 6;

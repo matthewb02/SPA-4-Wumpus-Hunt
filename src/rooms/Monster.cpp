@@ -11,7 +11,7 @@ void Monster::enter(Player* player) {
         std::cout << "There is a dead monster here, slain by an arrow." << std::endl;
     else {
         player -> changeLives(-player -> getLives());
-        std::cout << "There's a great beast here!" << std::endl;
+        std::cout << "There's a scary monster here!" << std::endl;
         std::cout << "You've been eaten." << std::endl;
     }
 }
