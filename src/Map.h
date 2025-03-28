@@ -10,15 +10,18 @@
 class Map {
 private:
   Room** rooms;
+  Player* player;
   int width, height;
   int playerX, playerY;
 public:
-  Map(int w, int h);
+  Map(int w, int h, Player* p);
   Room* getRoom(int x, int y);
+  Room* getCurrentRoom();
   void printMap();
   int getPlayerX();
   int getPlayerY();
-  void setPlayerPosition(int x, int y);
+  bool canMovePlayer(int dx, int dy);
+  void movePlayer(int dx, int dy);
 };
 
 

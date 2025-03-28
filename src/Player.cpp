@@ -4,12 +4,14 @@
 
 #include "Player.h"
 
+#include <iostream>
+
 Player::Player() {
     lives = 3;
     gold = 0;
     torches = 1;
     torchDuration = 5;
-    rations = 100;
+    rations = 40;
     arrows = 1;
     keys = 0;
 }
@@ -45,6 +47,15 @@ int Player::getTorchDuration() const {
 void Player::setTorchDuration(const int newTorchDuration) {
     torchDuration = newTorchDuration;
 }
+
+void Player::decrementTorchDuration() {
+    if (torchDuration > 0) {
+        torchDuration--;
+        if (torchDuration == 0)
+            std::cout << "Your torch burns out!" << std::endl;
+    }
+}
+
 
 int Player::getRations() const {
     return rations;

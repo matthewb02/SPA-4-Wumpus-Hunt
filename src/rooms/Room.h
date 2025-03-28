@@ -12,7 +12,7 @@ class Room {
 private:
   bool revealed;
 public:
-  Room() : revealed(false) {};
+  Room() : revealed(false) {}
   bool isRevealed();
   void reveal();
   virtual void shoot();

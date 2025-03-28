@@ -26,6 +26,7 @@ public:
     void changeTorches(int dTorches);
     int getTorchDuration() const;
     void setTorchDuration(int newTorchDuration);
+    void decrementTorchDuration();
     int getRations() const;
     void changeRations(int dRations);
     int getArrows() const;
