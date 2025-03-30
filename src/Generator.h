@@ -17,6 +17,7 @@ private:
   bool trySetRoom(int r, int id);
 public:
   Generator(int w, int h);
+  ~Generator();
   Room** generate();
   int getStartX();
   int getStartY();

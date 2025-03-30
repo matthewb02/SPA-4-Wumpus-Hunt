@@ -17,7 +17,6 @@ public:
   void reveal();
   virtual void shoot();
   virtual void enter(Player* player);
-  virtual std::string getWarning();
   virtual char getIcon();
   virtual bool canEnter();
 };

@@ -13,6 +13,11 @@ Game::Game() {
     endGame = false;
 }
 
+Game::~Game() {
+    delete player;
+}
+
+
 void Game::printDisplay() {
     map->printMap();
     cout << "gold: " << player->getGold() << endl;
@@ -35,7 +40,7 @@ void Game::lightTorch() {
     if (player -> getTorches() > 0) {
         cout << "You light a new torch." << endl;
         player -> changeTorches(-1);
-        player -> setTorchDuration(5);
+        player -> setTorchDuration(6);
         map -> revealRooms();
     } else {
         cout << "You don't have any torches." << endl;
@@ -77,14 +82,25 @@ void Game::shootAction() {
         cout << "You don't have any arrows." << endl;
 }
 
+void Game::help() {
+    cout << "You are the 'X' on the map." << endl;
+    cout << "Get as much gold as possible before you die!" << endl;
+    cout << "Deeper floors contain more gold." << endl;
+    cout << "Running out of rations will KILL YOU." << endl;
+    cout << "Stumbling into a Monster (M) will KILL YOU." << endl;
+    cout << "Stumbling into three Traps (T) will KILL YOU." << endl;
+    cout << "Most importantly, move sparingly. Each move costs a ration and wears down your torch." << endl;
+    cout << "When your torch burns out you must relight another or else you can't see where you're walking." << endl;
+    cout << endl << "Enter '?' to review this message." << endl << endl;
+}
 
 void Game::getInput() {
     cout << "Input 'w' 'a' 's' or 'd' to move," << endl;
     if (player -> getTorchDuration() == 0 && player -> getTorches() > 0)
-        cout << "'l' to light a torch, ";
+        cout << "'t' to light a torch, ";
     if (player -> getArrows() > 0)
         cout << "'r' to shoot an arrow, ";
-    cout << "or 'q' to quit." << endl << "Input: ";
+    cout << "'?' for help, or 'q' to quit." << endl << "Input: ";
     char input;
     cin >> input;
     cout << endl << endl << endl << endl;
@@ -104,11 +120,14 @@ void Game::getInput() {
         case 'd':
             move(1, 0);
             break;
-        case 'l':
+        case 't':
             lightTorch();
             break;
         case 'r':
             shootAction();
+            break;
+        case '?':
+            help();
             break;
         default:
             cout << "AAAAAHHH" << endl;
@@ -124,18 +143,23 @@ bool Game::checkEndGame() {
         cout << "YOU WERE KILLED..." << endl;
         return true;
     }
-    return false;
+    return endGame;
 }
 
 
 void Game::run() {
+    help();
     player -> changeMap(new Map(4, 4, player));
     map = player -> getMap();
 
     while (!endGame && player) {
         printDisplay();
         getInput();
-        map = player -> getMap();
+        Map* newMap = player -> getMap();
+        if (newMap != map) {
+            delete map;
+            map = newMap;
+        }
         endGame = checkEndGame();
     }
 

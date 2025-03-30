@@ -15,6 +15,7 @@ private:
   int playerX, playerY;
 public:
   Map(int w, int h, Player* p);
+  ~Map();
   Room* getRoom(int x, int y);
   Room* getCurrentRoom();
   void printMap();

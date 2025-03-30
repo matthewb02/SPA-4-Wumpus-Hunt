@@ -19,8 +19,10 @@ private:
     void lightTorch();
     void shootArrow(int dx, int dy);
     void shootAction();
+    void help();
 public:
     Game();
+    ~Game();
     void run();
 };
 

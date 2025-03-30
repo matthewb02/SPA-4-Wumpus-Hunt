@@ -20,6 +20,10 @@ Map::Map(int w, int h, Player* p) {
   getRoom(playerX, playerY) -> enter(player);
 }
 
+Map::~Map() {
+  delete[] rooms;
+}
+
 Room* Map::getRoom(int x, int y) {
   return rooms[y * width + x];
 }

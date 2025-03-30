@@ -18,6 +18,7 @@ private:
     Map* map;
 public:
     Player();
+    ~Player();
     Map* getMap();
     void changeMap(Map* map);
     int getLives() const;

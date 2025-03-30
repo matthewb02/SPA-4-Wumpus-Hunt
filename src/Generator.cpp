@@ -30,6 +30,10 @@ Generator::Generator(int w, int h) {
   map = new int[width * height] {0};
 }
 
+Generator::~Generator() {
+  delete[] map;
+}
+
 Room** Generator::generate() {
   srand(time(nullptr));
   startX = rand() % width;
@@ -121,7 +125,6 @@ void Generator::createSprawl(int r) {
   set<int> rooms;
   set<int> adjWalls;
   setRoom(r, 1);
-  rooms.insert(r);
   if (r % width + 1 != width && trySetRoom(r + 1, -1))
     adjWalls.insert(r + 1);
   if (r % width != 0 && trySetRoom(r - 1, -1))
@@ -157,9 +160,6 @@ void Generator::createSprawl(int r) {
   map[torch] = 7;
   int exit = getRandomElement(rooms);
   rooms.erase(exit);
-  if (exit == startX + startY * width) {
-    exit = getRandomElement(rooms);
-  }
   map[exit] = 9;
   int monster = getRandomElement(adjWalls);
   adjWalls.erase(monster);

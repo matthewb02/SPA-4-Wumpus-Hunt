@@ -23,10 +23,6 @@ void Room::enter(Player* player) {
     cout << "There is nothing here." << endl;
 }
 
-string Room::getWarning() {
-  return "";
-}
-
 char Room::getIcon() {
   return ' ';
 }

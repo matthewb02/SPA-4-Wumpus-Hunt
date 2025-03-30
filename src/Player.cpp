@@ -2,7 +2,7 @@
 // Created by benderm on 3/26/2025.
 //
 
-#include "Player.h"
+#include "Map.h"
 
 #include <iostream>
 
@@ -10,12 +10,17 @@ Player::Player() {
     lives = 3;
     gold = 0;
     torches = 1;
-    torchDuration = 5;
+    torchDuration = 6;
     rations = 40;
     arrows = 0;
     keys = 0;
     goldMultiplier = 1.0;
 }
+
+Player::~Player() {
+    delete map;
+}
+
 
 Map* Player::getMap() {
     return map;
