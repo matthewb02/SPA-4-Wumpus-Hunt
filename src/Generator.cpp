@@ -89,6 +89,9 @@ Room** Generator::generate() {
       case 10:
         finalMap[i] = new Shop();
         break;
+      case 11:
+        finalMap[i] = new Fountain();
+        break;
       default:
         finalMap[i] = new Wall();
     }
@@ -173,7 +176,7 @@ void Generator::createSprawl(int r) {
     if (rand() % 3 == 0) {
       int fountain = getRandomElement(rooms);
       rooms.erase(fountain);
-      map[fountain] = 10;
+      map[fountain] = 11;
     } else {
       int shop = getRandomElement(rooms);
       rooms.erase(shop);

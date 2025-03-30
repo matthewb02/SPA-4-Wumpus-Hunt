@@ -130,7 +130,7 @@ void Game::getInput() {
             help();
             break;
         default:
-            cout << "AAAAAHHH" << endl;
+            cout << "Invalid input '" << input << "'" << endl;
     }
 }
 
